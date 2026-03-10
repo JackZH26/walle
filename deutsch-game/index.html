@@ -2,158 +2,184 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>🇩🇪 Vokabel-Matching</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
+  html, body {
+    height: 100%; overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #0f0f23;
-    color: #e0e0e0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    background: #0f0f23; color: #e0e0e0;
   }
-  h1 { font-size: 1.6em; margin-bottom: 4px; color: #fff; }
-  .subtitle { color: #888; font-size: 0.9em; margin-bottom: 16px; }
+  body {
+    display: flex; flex-direction: column;
+    padding: 8px 12px; max-width: 800px; margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 4px 0; flex-shrink: 0;
+  }
+  .header h1 { font-size: 1.1em; color: #fff; }
+  .header .date { color: #666; font-size: 0.75em; }
+
+  /* Progress bar */
   .progress-bar {
-    width: 100%; max-width: 700px; height: 6px;
-    background: #1a1a3e; border-radius: 3px; margin-bottom: 20px; overflow: hidden;
+    width: 100%; height: 4px; background: #1a1a3e;
+    border-radius: 2px; margin: 4px 0; flex-shrink: 0; overflow: hidden;
   }
   .progress-fill {
     height: 100%; background: linear-gradient(90deg, #4CAF50, #8BC34A);
-    border-radius: 3px; transition: width 0.4s ease;
+    border-radius: 2px; transition: width 0.4s ease;
   }
+
+  /* Stats */
   .stats-bar {
-    display: flex; gap: 24px; margin-bottom: 20px; font-size: 0.9em; color: #aaa;
+    display: flex; gap: 16px; font-size: 0.78em; color: #aaa;
+    padding: 2px 0; flex-shrink: 0;
   }
-  .stats-bar span { display: flex; align-items: center; gap: 6px; }
+  .stats-bar span { display: flex; align-items: center; gap: 4px; }
   .stats-bar .correct { color: #4CAF50; }
   .stats-bar .wrong { color: #f44336; }
-  .game-area {
-    display: flex; gap: 40px; width: 100%; max-width: 700px;
-    justify-content: center; flex-wrap: wrap;
+
+  /* Column headers */
+  .col-headers {
+    display: flex; gap: 8px; padding: 6px 0 2px;
+    flex-shrink: 0;
   }
-  .column { display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 200px; }
-  .column-header {
-    text-align: center; font-size: 0.85em; font-weight: 600;
-    color: #666; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px;
+  .col-headers div {
+    flex: 1; text-align: center; font-size: 0.72em; font-weight: 600;
+    color: #555; text-transform: uppercase; letter-spacing: 1.5px;
   }
+
+  /* Game grid - the main area that fills remaining space */
+  .game-grid {
+    flex: 1; display: flex; gap: 8px;
+    min-height: 0; /* crucial for flex shrink */
+  }
+  .column {
+    flex: 1; display: flex; flex-direction: column;
+    gap: 4px; justify-content: center;
+  }
+
+  /* Word buttons - sized to fill available space */
   .word-btn {
-    padding: 14px 16px; border: 2px solid #2a2a5e; border-radius: 12px;
-    background: #1a1a3e; color: #e0e0e0; font-size: 1.05em;
-    cursor: pointer; transition: all 0.2s ease; text-align: center;
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    border: 2px solid #2a2a5e; border-radius: 8px;
+    background: #1a1a3e; color: #e0e0e0;
+    font-size: clamp(0.7em, 1.8vmin, 0.95em);
+    cursor: pointer; transition: all 0.15s ease; text-align: center;
     user-select: none; -webkit-user-select: none;
+    padding: 2px 6px;
+    min-height: 0;
+    -webkit-tap-highlight-color: transparent;
   }
   .word-btn:hover:not(.matched):not(.disabled) {
-    border-color: #5c6bc0; background: #252560; transform: scale(1.02);
+    border-color: #5c6bc0; background: #252560;
   }
   .word-btn.selected {
     border-color: #7c4dff; background: #2d2070; color: #fff;
-    box-shadow: 0 0 12px rgba(124, 77, 255, 0.3);
+    box-shadow: 0 0 10px rgba(124, 77, 255, 0.3);
   }
   .word-btn.matched {
     border-color: #4CAF50; background: #1b3a1b; color: #4CAF50;
-    cursor: default; opacity: 0.7;
+    cursor: default; opacity: 0.6;
   }
   .word-btn.wrong-flash {
-    animation: wrongShake 0.5s ease;
+    animation: wrongShake 0.4s ease;
     border-color: #f44336; background: #3a1b1b;
   }
-  .word-btn.disabled { cursor: default; opacity: 0.4; }
   @keyframes wrongShake {
     0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-6px); }
-    40% { transform: translateX(6px); }
-    60% { transform: translateX(-4px); }
-    80% { transform: translateX(4px); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(-3px); }
   }
-  .page-indicator {
-    margin-top: 24px; font-size: 0.9em; color: #666;
-  }
+
+  /* Result screen */
   .result-screen {
-    display: none; text-align: center; max-width: 500px; width: 100%;
+    display: none; flex-direction: column; align-items: center;
+    flex: 1; overflow-y: auto; padding: 8px 0;
   }
-  .result-screen h2 { font-size: 1.8em; margin-bottom: 16px; color: #fff; }
+  .result-screen h2 { font-size: 1.4em; color: #fff; margin-bottom: 8px; }
   .result-score {
-    font-size: 3em; font-weight: 700; margin: 20px 0;
+    font-size: 2.4em; font-weight: 700; margin: 8px 0;
     background: linear-gradient(135deg, #4CAF50, #8BC34A);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }
-  .result-details { margin: 20px 0; text-align: left; }
+  .result-time { color: #888; font-size: 0.85em; margin-bottom: 12px; }
+  .result-details { width: 100%; max-width: 500px; }
   .result-details .item {
-    display: flex; justify-content: space-between; padding: 8px 12px;
-    border-bottom: 1px solid #1a1a3e; font-size: 0.95em;
+    display: flex; justify-content: space-between; padding: 5px 8px;
+    border-bottom: 1px solid #1a1a3e; font-size: 0.85em;
   }
   .result-details .item.wrong-item { color: #f44336; }
   .result-details .item.correct-item { color: #4CAF50; }
-  .btn-primary {
-    padding: 14px 32px; border: none; border-radius: 12px;
-    background: linear-gradient(135deg, #5c6bc0, #7c4dff);
-    color: #fff; font-size: 1.05em; cursor: pointer;
-    margin-top: 16px; transition: transform 0.2s;
+  .weak-words {
+    margin-top: 12px; padding: 12px; background: #1a1a3e;
+    border-radius: 10px; text-align: left; width: 100%; max-width: 500px;
   }
-  .btn-primary:hover { transform: scale(1.05); }
-  .btn-send {
-    background: linear-gradient(135deg, #4CAF50, #66BB6A);
-    margin-top: 12px;
-  }
-  .timer { color: #888; font-size: 0.85em; }
-  .weak-words { margin-top: 16px; padding: 16px; background: #1a1a3e; border-radius: 12px; text-align: left; }
-  .weak-words h3 { color: #f44336; margin-bottom: 8px; font-size: 1em; }
-  .weak-words ul { list-style: none; padding: 0; }
-  .weak-words li { padding: 4px 0; font-size: 0.9em; color: #ccc; }
+  .weak-words h3 { color: #f44336; margin-bottom: 6px; font-size: 0.9em; }
+  .weak-words li { padding: 3px 0; font-size: 0.85em; color: #ccc; list-style: none; }
   .weak-words li span { color: #888; }
+  .btn-primary {
+    padding: 10px 24px; border: none; border-radius: 10px;
+    background: linear-gradient(135deg, #4CAF50, #66BB6A);
+    color: #fff; font-size: 0.95em; cursor: pointer; margin-top: 12px;
+  }
+
+  /* Desktop: slightly more breathing room */
+  @media (min-height: 700px) {
+    body { padding: 12px 16px; }
+    .word-btn { font-size: clamp(0.8em, 2vmin, 1em); border-radius: 10px; padding: 4px 10px; }
+    .column { gap: 6px; }
+    .game-grid { gap: 12px; }
+  }
 </style>
 </head>
 <body>
 
-<h1>🇩🇪 Vokabel-Matching</h1>
-<div class="subtitle" id="dateLabel"></div>
+<div class="header">
+  <h1>🇩🇪 Vokabel-Matching</h1>
+  <span class="date" id="dateLabel"></span>
+</div>
 
 <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
 
 <div class="stats-bar">
-  <span>📄 Seite <strong id="pageNum">1</strong> / <strong id="pageTotal">3</strong></span>
+  <span>📄 <strong id="pageNum">1</strong>/<strong id="pageTotal">3</strong></span>
   <span class="correct">✅ <strong id="correctCount">0</strong></span>
   <span class="wrong">❌ <strong id="wrongCount">0</strong></span>
-  <span class="timer">⏱ <strong id="timerDisplay">0:00</strong></span>
+  <span>⏱ <strong id="timerDisplay">0:00</strong></span>
 </div>
 
-<div class="game-area" id="gameArea">
-  <div class="column">
-    <div class="column-header">🇩🇪 Deutsch</div>
-    <div id="leftCol"></div>
-  </div>
-  <div class="column">
-    <div class="column-header">🇬🇧 English</div>
-    <div id="rightCol"></div>
-  </div>
+<div class="col-headers" id="colHeaders">
+  <div>🇩🇪 Deutsch</div>
+  <div>🇬🇧 English</div>
 </div>
 
-<div class="page-indicator" id="pageIndicator"></div>
+<div class="game-grid" id="gameArea">
+  <div class="column" id="leftCol"></div>
+  <div class="column" id="rightCol"></div>
+</div>
 
 <div class="result-screen" id="resultScreen">
   <h2>🎉 Fertig!</h2>
   <div class="result-score" id="resultScore"></div>
-  <div id="resultTime" style="color:#888; margin-bottom:12px;"></div>
+  <div class="result-time" id="resultTime"></div>
   <div class="result-details" id="resultDetails"></div>
   <div class="weak-words" id="weakWords" style="display:none;">
-    <h3>📝 生词本新增 (Neue schwache Wörter)</h3>
+    <h3>📝 生词本新增</h3>
     <ul id="weakList"></ul>
   </div>
-  <button class="btn-primary btn-send" onclick="sendResults()">📤 发送结果到 Discord</button>
+  <button class="btn-primary" onclick="sendResults()">📤 发送结果到 Discord</button>
 </div>
 
 <script>
-// ===== WORD DATA =====
-// Each page has 10 pairs: { de: "German", en: "English" }
 const DAILY_WORDS = {
   date: new Date().toISOString().slice(0, 10),
   pages: [
-    // Page 1: Review (yesterday's weak words) + some known
     [
       { de: "die Erfahrung", en: "experience" },
       { de: "eigentlich", en: "actually" },
@@ -166,7 +192,6 @@ const DAILY_WORDS = {
       { de: "speichern", en: "to save" },
       { de: "veröffentlichen", en: "to publish" },
     ],
-    // Page 2: Mix of review + new A2 words
     [
       { de: "die Fehlermeldung", en: "error message" },
       { de: "seit", en: "since" },
@@ -179,7 +204,6 @@ const DAILY_WORDS = {
       { de: "möglich", en: "possible" },
       { de: "die Aufgabe", en: "task / assignment" },
     ],
-    // Page 3: New A2-B1 words
     [
       { de: "benutzerfreundlich", en: "user-friendly" },
       { de: "die Schnittstelle", en: "interface / API" },
@@ -190,231 +214,130 @@ const DAILY_WORDS = {
       { de: "der Nachteil", en: "disadvantage" },
       { de: "verbessern", en: "to improve" },
       { de: "die Lösung", en: "solution" },
-      { de: "überprüfen", en: "to check / to review" },
+      { de: "überprüfen", en: "to check / review" },
     ],
   ]
 };
 
-// ===== GAME STATE =====
-let currentPage = 0;
-let selected = null; // { side: 'de'|'en', index: number, element: HTMLElement }
-let totalCorrect = 0;
-let totalWrong = 0;
-let matchedThisPage = 0;
-let allResults = []; // { de, en, correct: bool, attempts: number }
-let pairAttempts = {}; // track attempts per pair
-let startTime = Date.now();
-let timerInterval;
+let currentPage = 0, selected = null;
+let totalCorrect = 0, totalWrong = 0, matchedThisPage = 0;
+let allResults = [], pairAttempts = {};
+let startTime = Date.now(), timerInterval;
 
-// ===== INIT =====
 function init() {
-  document.getElementById('dateLabel').textContent = DAILY_WORDS.date + ' · 30 Wörter · 3 Seiten';
+  document.getElementById('dateLabel').textContent = DAILY_WORDS.date;
   document.getElementById('pageTotal').textContent = DAILY_WORDS.pages.length;
   timerInterval = setInterval(updateTimer, 1000);
   loadPage(0);
 }
 
 function updateTimer() {
-  const elapsed = Math.floor((Date.now() - startTime) / 1000);
-  const min = Math.floor(elapsed / 60);
-  const sec = elapsed % 60;
-  document.getElementById('timerDisplay').textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+  const s = Math.floor((Date.now() - startTime) / 1000);
+  document.getElementById('timerDisplay').textContent = `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;
 }
 
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
+function shuffle(a) {
+  a = [...a];
+  for (let i = a.length-1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
   return a;
 }
 
-function loadPage(pageIndex) {
-  currentPage = pageIndex;
-  matchedThisPage = 0;
-  selected = null;
-  pairAttempts = {};
-  const pairs = DAILY_WORDS.pages[pageIndex];
-  const deShuffled = shuffle(pairs.map((p, i) => ({ text: p.de, idx: i })));
-  const enShuffled = shuffle(pairs.map((p, i) => ({ text: p.en, idx: i })));
-
-  document.getElementById('pageNum').textContent = pageIndex + 1;
+function loadPage(pi) {
+  currentPage = pi; matchedThisPage = 0; selected = null; pairAttempts = {};
+  const pairs = DAILY_WORDS.pages[pi];
+  const deS = shuffle(pairs.map((p,i) => ({text:p.de, idx:i})));
+  const enS = shuffle(pairs.map((p,i) => ({text:p.en, idx:i})));
+  document.getElementById('pageNum').textContent = pi + 1;
   updateProgress();
-
-  const leftCol = document.getElementById('leftCol');
-  const rightCol = document.getElementById('rightCol');
-  leftCol.innerHTML = '';
-  rightCol.innerHTML = '';
-
-  deShuffled.forEach(item => {
-    const btn = createBtn(item.text, 'de', item.idx);
-    leftCol.appendChild(btn);
-  });
-  enShuffled.forEach(item => {
-    const btn = createBtn(item.text, 'en', item.idx);
-    rightCol.appendChild(btn);
-  });
+  const lc = document.getElementById('leftCol'), rc = document.getElementById('rightCol');
+  lc.innerHTML = ''; rc.innerHTML = '';
+  deS.forEach(item => lc.appendChild(mkBtn(item.text, 'de', item.idx)));
+  enS.forEach(item => rc.appendChild(mkBtn(item.text, 'en', item.idx)));
 }
 
-function createBtn(text, side, idx) {
-  const btn = document.createElement('div');
-  btn.className = 'word-btn';
-  btn.textContent = text;
-  btn.dataset.side = side;
-  btn.dataset.idx = idx;
-  btn.addEventListener('click', () => onClickWord(btn, side, idx));
-  return btn;
+function mkBtn(text, side, idx) {
+  const b = document.createElement('div');
+  b.className = 'word-btn'; b.textContent = text;
+  b.dataset.side = side; b.dataset.idx = idx;
+  b.addEventListener('click', () => onClick(b, side, idx));
+  return b;
 }
 
-function onClickWord(btn, side, idx) {
-  if (btn.classList.contains('matched') || btn.classList.contains('disabled')) return;
+function onClick(btn, side, idx) {
+  if (btn.classList.contains('matched')) return;
+  if (!selected) { btn.classList.add('selected'); selected = {side,index:idx,element:btn}; return; }
+  if (selected.element === btn) { btn.classList.remove('selected'); selected = null; return; }
+  if (selected.side === side) { selected.element.classList.remove('selected'); btn.classList.add('selected'); selected={side,index:idx,element:btn}; return; }
 
-  if (!selected) {
-    btn.classList.add('selected');
-    selected = { side, index: idx, element: btn };
-    return;
-  }
-
-  // Clicking same button = deselect
-  if (selected.element === btn) {
-    btn.classList.remove('selected');
-    selected = null;
-    return;
-  }
-
-  // Clicking same side = switch selection
-  if (selected.side === side) {
-    selected.element.classList.remove('selected');
-    btn.classList.add('selected');
-    selected = { side, index: idx, element: btn };
-    return;
-  }
-
-  // Different sides = check match
-  const deIdx = side === 'de' ? idx : selected.index;
-  const enIdx = side === 'en' ? idx : selected.index;
-  const deBtn = side === 'de' ? btn : selected.element;
-  const enBtn = side === 'en' ? btn : selected.element;
-
-  const pairKey = `${currentPage}-${deIdx}`;
-  if (!pairAttempts[pairKey]) pairAttempts[pairKey] = 0;
+  const deIdx = side==='de'? idx : selected.index;
+  const enIdx = side==='en'? idx : selected.index;
+  const deBtn = side==='de'? btn : selected.element;
+  const enBtn = side==='en'? btn : selected.element;
+  const pk = `${currentPage}-${deIdx}`;
+  if (!pairAttempts[pk]) pairAttempts[pk] = 0;
 
   if (deIdx === enIdx) {
-    // Correct match!
-    deBtn.classList.remove('selected');
-    deBtn.classList.add('matched');
-    enBtn.classList.add('matched');
-    matchedThisPage++;
-    totalCorrect++;
+    deBtn.classList.remove('selected'); deBtn.classList.add('matched'); enBtn.classList.add('matched');
+    matchedThisPage++; totalCorrect++;
     document.getElementById('correctCount').textContent = totalCorrect;
-
     const pair = DAILY_WORDS.pages[currentPage][deIdx];
-    allResults.push({ de: pair.de, en: pair.en, correct: pairAttempts[pairKey] === 0, attempts: pairAttempts[pairKey] + 1 });
-
-    selected = null;
-    updateProgress();
-
+    allResults.push({de:pair.de, en:pair.en, correct:pairAttempts[pk]===0, attempts:pairAttempts[pk]+1});
+    selected = null; updateProgress();
     if (matchedThisPage === DAILY_WORDS.pages[currentPage].length) {
       setTimeout(() => {
-        if (currentPage < DAILY_WORDS.pages.length - 1) {
-          loadPage(currentPage + 1);
-        } else {
-          showResults();
-        }
-      }, 600);
+        if (currentPage < DAILY_WORDS.pages.length - 1) loadPage(currentPage + 1);
+        else showResults();
+      }, 500);
     }
   } else {
-    // Wrong match
-    pairAttempts[pairKey] = (pairAttempts[pairKey] || 0) + 1;
-    totalWrong++;
+    pairAttempts[pk]++; totalWrong++;
     document.getElementById('wrongCount').textContent = totalWrong;
-
-    deBtn.classList.add('wrong-flash');
-    enBtn.classList.add('wrong-flash');
+    deBtn.classList.add('wrong-flash'); enBtn.classList.add('wrong-flash');
     selected.element.classList.remove('selected');
-
-    setTimeout(() => {
-      deBtn.classList.remove('wrong-flash');
-      enBtn.classList.remove('wrong-flash');
-    }, 500);
-
+    setTimeout(() => { deBtn.classList.remove('wrong-flash'); enBtn.classList.remove('wrong-flash'); }, 400);
     selected = null;
   }
 }
 
 function updateProgress() {
-  const totalPairs = DAILY_WORDS.pages.reduce((s, p) => s + p.length, 0);
-  const done = allResults.length;
-  const pct = (done / totalPairs * 100).toFixed(1);
-  document.getElementById('progressFill').style.width = pct + '%';
+  const total = DAILY_WORDS.pages.reduce((s,p) => s+p.length, 0);
+  document.getElementById('progressFill').style.width = (allResults.length/total*100) + '%';
 }
 
 function showResults() {
   clearInterval(timerInterval);
-  const elapsed = Math.floor((Date.now() - startTime) / 1000);
-  const min = Math.floor(elapsed / 60);
-  const sec = elapsed % 60;
-
+  const s = Math.floor((Date.now()-startTime)/1000);
   document.getElementById('gameArea').style.display = 'none';
+  document.getElementById('colHeaders').style.display = 'none';
   document.querySelector('.stats-bar').style.display = 'none';
   document.querySelector('.progress-bar').style.display = 'none';
-  document.getElementById('pageIndicator').style.display = 'none';
-
-  const screen = document.getElementById('resultScreen');
-  screen.style.display = 'block';
-
-  const firstTryCorrect = allResults.filter(r => r.correct).length;
-  const total = allResults.length;
-  const pct = Math.round(firstTryCorrect / total * 100);
-
-  document.getElementById('resultScore').textContent = `${pct}% (${firstTryCorrect}/${total})`;
-  document.getElementById('resultTime').textContent = `⏱ 用时 ${min}:${sec.toString().padStart(2, '0')} · ❌ 总错误 ${totalWrong} 次`;
-
-  const details = document.getElementById('resultDetails');
-  details.innerHTML = '';
+  const scr = document.getElementById('resultScreen');
+  scr.style.display = 'flex';
+  const fc = allResults.filter(r=>r.correct).length, tot = allResults.length;
+  const pct = Math.round(fc/tot*100);
+  document.getElementById('resultScore').textContent = `${pct}% (${fc}/${tot})`;
+  document.getElementById('resultTime').textContent = `⏱ ${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')} · ❌ ${totalWrong}`;
+  const det = document.getElementById('resultDetails'); det.innerHTML = '';
   allResults.forEach(r => {
-    const div = document.createElement('div');
-    div.className = 'item ' + (r.correct ? 'correct-item' : 'wrong-item');
-    div.innerHTML = `<span>${r.de}</span><span>${r.en} ${r.correct ? '✅' : '❌ (' + r.attempts + '次)'}</span>`;
-    details.appendChild(div);
+    const d = document.createElement('div');
+    d.className = 'item '+(r.correct?'correct-item':'wrong-item');
+    d.innerHTML = `<span>${r.de}</span><span>${r.en} ${r.correct?'✅':'❌('+r.attempts+')'}</span>`;
+    det.appendChild(d);
   });
-
-  // Show weak words
-  const weakOnes = allResults.filter(r => !r.correct);
-  if (weakOnes.length > 0) {
-    const weakDiv = document.getElementById('weakWords');
-    weakDiv.style.display = 'block';
-    const list = document.getElementById('weakList');
-    list.innerHTML = '';
-    weakOnes.forEach(w => {
-      const li = document.createElement('li');
-      li.innerHTML = `<strong>${w.de}</strong> <span>→ ${w.en}</span>`;
-      list.appendChild(li);
-    });
+  const weak = allResults.filter(r=>!r.correct);
+  if (weak.length) {
+    document.getElementById('weakWords').style.display = 'block';
+    const ul = document.getElementById('weakList'); ul.innerHTML = '';
+    weak.forEach(w => { const li=document.createElement('li'); li.innerHTML=`<strong>${w.de}</strong> <span>→ ${w.en}</span>`; ul.appendChild(li); });
   }
-
-  // Store results for retrieval
-  window.__matchingResults = {
-    date: DAILY_WORDS.date,
-    score: pct,
-    correct: firstTryCorrect,
-    total: total,
-    wrongCount: totalWrong,
-    timeSeconds: elapsed,
-    weak: allResults.filter(r => !r.correct).map(r => ({ de: r.de, en: r.en })),
-    passed: allResults.filter(r => r.correct).map(r => ({ de: r.de, en: r.en })),
-  };
+  window.__matchingResults = { date:DAILY_WORDS.date, score:pct, correct:fc, total:tot, wrongCount:totalWrong, timeSeconds:s,
+    weak:weak.map(r=>({de:r.de,en:r.en})), passed:allResults.filter(r=>r.correct).map(r=>({de:r.de,en:r.en})) };
 }
 
 function sendResults() {
-  const r = window.__matchingResults;
-  if (!r) return;
   const btn = event.target;
-  btn.textContent = '✅ 结果已保存，瓦力会自动同步到 Discord！';
-  btn.disabled = true;
-  btn.style.opacity = '0.6';
-  // Results are stored in window.__matchingResults for canvas eval retrieval
+  btn.textContent = '✅ 已保存！瓦力会同步到 Discord';
+  btn.disabled = true; btn.style.opacity = '0.6';
 }
 
 init();
