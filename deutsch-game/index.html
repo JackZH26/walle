@@ -177,9 +177,11 @@
 </div>
 
 <script>
+// 2026-03-11 Wed: Alltag & Freizeit + Review weak words
 const DAILY_WORDS = {
-  date: new Date().toISOString().slice(0, 10),
+  date: "2026-03-11",
   pages: [
+    // Page 1: 6 weak words (3/9 batch) + 4 new Alltag words
     [
       { de: "die Erfahrung", en: "experience" },
       { de: "eigentlich", en: "actually" },
@@ -187,34 +189,36 @@ const DAILY_WORDS = {
       { de: "die Besprechung", en: "meeting" },
       { de: "sich entscheiden", en: "to decide" },
       { de: "der Unterschied", en: "difference" },
+      { de: "die Abwechslung", en: "variety / change" },
+      { de: "empfehlen", en: "to recommend" },
+      { de: "entspannend", en: "relaxing" },
+      { de: "der Alltag", en: "everyday life" },
+    ],
+    // Page 2: 5 weak words (3/10 batch) + 5 new Alltag & Freizeit words
+    [
       { de: "die Entwicklung", en: "development" },
       { de: "herunterladen", en: "to download" },
       { de: "speichern", en: "to save" },
-      { de: "veröffentlichen", en: "to publish" },
-    ],
-    [
       { de: "die Fehlermeldung", en: "error message" },
-      { de: "seit", en: "since" },
-      { de: "einfach", en: "simple / easy" },
-      { de: "die Branche", en: "industry / sector" },
-      { de: "verstehen", en: "to understand" },
-      { de: "beginnen", en: "to begin" },
-      { de: "das Beispiel", en: "example" },
-      { de: "erhalten", en: "to receive" },
-      { de: "möglich", en: "possible" },
-      { de: "die Aufgabe", en: "task / assignment" },
+      { de: "veröffentlichen", en: "to publish" },
+      { de: "die Gewohnheit", en: "habit" },
+      { de: "sich unterhalten", en: "to chat / converse" },
+      { de: "unternehmen", en: "to do / undertake" },
+      { de: "gemütlich", en: "cozy / comfortable" },
+      { de: "die Verabredung", en: "appointment / date" },
     ],
+    // Page 3: All new A2-B1 Alltag & Freizeit words
     [
-      { de: "benutzerfreundlich", en: "user-friendly" },
-      { de: "die Schnittstelle", en: "interface / API" },
-      { de: "aktualisieren", en: "to update" },
-      { de: "gleichzeitig", en: "at the same time" },
-      { de: "die Meinung", en: "opinion" },
-      { de: "der Vorteil", en: "advantage" },
-      { de: "der Nachteil", en: "disadvantage" },
-      { de: "verbessern", en: "to improve" },
-      { de: "die Lösung", en: "solution" },
-      { de: "überprüfen", en: "to check / review" },
+      { de: "sich langweilen", en: "to be bored" },
+      { de: "der Ausflug", en: "trip / excursion" },
+      { de: "die Stimmung", en: "mood / atmosphere" },
+      { de: "sich freuen auf", en: "to look forward to" },
+      { de: "die Umgebung", en: "surroundings" },
+      { de: "sich erholen", en: "to recover / relax" },
+      { de: "begeistert", en: "enthusiastic" },
+      { de: "der Eindruck", en: "impression" },
+      { de: "gesellig", en: "sociable" },
+      { de: "verbringen", en: "to spend (time)" },
     ],
   ]
 };
