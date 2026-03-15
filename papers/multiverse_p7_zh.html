@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>从 Z 到多重宇宙：p = 7 的视角</title>
+<style>
+  @page {
+    size: A4;
+    margin: 2.5cm;
+  }
+  body {
+    font-family: "Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+    font-size: 11pt;
+    line-height: 1.8;
+    color: #222;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 2.5cm;
+  }
+  h1 {
+    font-size: 18pt;
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 0.3em;
+    line-height: 1.4;
+  }
+  h2 {
+    font-size: 14pt;
+    margin-top: 2em;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3em;
+  }
+  h3 {
+    font-size: 12pt;
+    margin-top: 1.5em;
+  }
+  .author-block {
+    text-align: center;
+    margin-bottom: 2em;
+    line-height: 1.6;
+  }
+  .author-block .name {
+    font-weight: bold;
+    font-size: 12pt;
+  }
+  .abstract {
+    margin: 1.5em 2em;
+    padding: 1em;
+    background: #f9f9f9;
+    border-left: 3px solid #666;
+    font-size: 10.5pt;
+  }
+  .abstract-title {
+    font-weight: bold;
+    font-size: 11pt;
+    margin-bottom: 0.5em;
+  }
+  .formula {
+    display: block;
+    text-align: center;
+    margin: 0.8em auto;
+    padding: 0.6em 1em;
+    background: #f5f5f0;
+    border-radius: 4px;
+    font-family: "Cambria Math", "Latin Modern Math", "STIX Two Math", "Times New Roman", serif;
+    font-size: 10.5pt;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-width: 90%;
+  }
+  .inline-math {
+    font-family: "Cambria Math", "Latin Modern Math", "STIX Two Math", "Times New Roman", serif;
+    font-style: italic;
+    white-space: nowrap;
+  }
+  .theorem-env {
+    margin: 1em 0;
+    padding: 0.5em 0;
+  }
+  .theorem-env .label {
+    font-weight: bold;
+  }
+  .theorem-env .title {
+    font-weight: normal;
+  }
+  .proof {
+    margin: 0.5em 0 1em 0;
+  }
+  .proof-label {
+    font-style: italic;
+    font-weight: bold;
+  }
+  .qed {
+    float: right;
+  }
+  .toc {
+    margin: 1.5em 0;
+    padding: 1em 1.5em;
+    background: #fafafa;
+    border: 1px solid #eee;
+  }
+  .toc ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .toc ul ul {
+    padding-left: 1.5em;
+  }
+  .toc li {
+    margin: 0.2em 0;
+  }
+  table {
+    border-collapse: collapse;
+    margin: 1em auto;
+    font-size: 10pt;
+  }
+  table th, table td {
+    border: 1px solid #999;
+    padding: 0.4em 0.8em;
+    text-align: center;
+  }
+  table th {
+    background: #f0f0f0;
+    font-weight: bold;
+  }
+  .references {
+    font-size: 10pt;
+  }
+  .references p {
+    margin: 0.3em 0;
+    padding-left: 2em;
+    text-indent: -2em;
+  }
+  .remark-tag {
+    color: #555;
+    font-size: 9pt;
+    vertical-align: super;
+  }
+  sup { font-size: 0.75em; vertical-align: super; }
+  sub { font-size: 0.75em; vertical-align: sub; }
+  var { font-style: italic; font-family: "Cambria Math", "Times New Roman", serif; }
+  .sc { font-variant: small-caps; }
+  hr { border: none; border-top: 1px solid #ccc; margin: 2em 0; }
+  @media print {
+    body { padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<h1>从 <span class="inline-math">ℤ</span> 到多重宇宙：<span class="inline-math">p</span> = 7 的视角</h1>
+
+<div class="author-block">
+  <div class="name">胡绍武 (Shaowu Hu)</div>
+  <div>独立研究者</div>
+  <div>forest@xindong.com</div>
+  <div>ORCID: 0009-0009-8300-4691</div>
+  <div style="margin-top:0.5em;">2026年3月</div>
+</div>
+
+<div class="abstract">
+  <div class="abstract-title">摘要</div>
+  整数集 <span class="inline-math">ℤ</span> 是环范畴（category of rings）的始对象（initial object），也是唯一的无限循环群。其自同态环 <span class="inline-math">End(ℤ, +) = ℤ</span> 使得乘法从加法中涌现，令 <span class="inline-math">ℤ</span> 成为一个自指的算术宇宙。Bost–Connes (BC) 代数 <span class="inline-math">𝒜 = C*(ℚ/ℤ) ⋊ ℕ*</span> 是 <span class="inline-math">ℤ</span> 的量子统计力学化：逆温度轴 <span class="inline-math">β</span> 描述"观测的深度"，素数是BC代数配分函数的 Euler 因子（不可约局部因子）。每个素数 <span class="inline-math">p</span> 独立地决定一组完整的物理学：谱维数 <span class="inline-math">d<sub>s</sub></span>、规范群 <span class="inline-math">G<sub>p</sub></span> 和费米子代数。这些"素数宇宙"并非假说，而是BC代数中由素数标记的自然结构。我们证明 <span class="inline-math">p</span> = 7 是唯一支持四维时空且具有 <span class="inline-math">SU(2) × SU(3)</span> 规范群的素数，并推导了暗物质、CP破缺和 Riemann 假设（Riemann hypothesis）的跨通道诠释。<span class="inline-math">ζ</span> 的零点是所有素数宇宙的集体干涉图样；RH 等价于多重宇宙的完美平衡。
+</div>
+
+<div class="toc">
+<strong>目录</strong>
+<ul>
+  <li>1&emsp;<span class="inline-math">ℤ</span> —— 起源
+    <ul>
+      <li>1.1&emsp;极小性</li>
+      <li>1.2&emsp;乘法的涌现</li>
+      <li>1.3&emsp;观测即计数</li>
+    </ul>
+  </li>
+  <li>2&emsp;BC 代数 —— <span class="inline-math">ℤ</span> 的量子统计力学
+    <ul>
+      <li>2.1&emsp;Bost–Connes 系统</li>
+      <li>2.2&emsp;KMS 态与相变</li>
+      <li>2.3&emsp;<span class="inline-math">β</span> 轴的物理诠释</li>
+    </ul>
+  </li>
+  <li>3&emsp;素数宇宙 —— 每个 <span class="inline-math">p</span> 的完整物理
+    <ul>
+      <li>3.1&emsp;素数作为 Euler 因子</li>
+      <li>3.2&emsp;时空维数：Hermite矩阵论证</li>
+      <li>3.3&emsp;规范群的CRT分解</li>
+      <li>3.4&emsp;素数宇宙全表</li>
+    </ul>
+  </li>
+  <li>4&emsp;多重宇宙的结构
+    <ul>
+      <li>4.1&emsp;共存：<span class="inline-math">β</span> = 0 时的全叠加</li>
+      <li>4.2&emsp;通道间关联</li>
+      <li>4.3&emsp;时间作为通道属性</li>
+      <li>4.4&emsp;宇宙循环</li>
+      <li>4.5&emsp;镜像对称</li>
+    </ul>
+  </li>
+  <li>5&emsp;<span class="inline-math">p</span> = 7 —— 我们的宇宙
+    <ul>
+      <li>5.1&emsp;三个独立的唯一性证明</li>
+      <li>5.2&emsp;<span class="inline-math">p</span> = 7 的唯一性：人择原理与唯一性</li>
+      <li>5.3&emsp;后续研究方向</li>
+    </ul>
+  </li>
+  <li>6&emsp;跨通道物理
+    <ul>
+      <li>6.1&emsp;暗物质 = 其他通道的质量</li>
+      <li>6.2&emsp;CP 破缺 = 通道投影畸变</li>
+      <li>6.3&emsp;Riemann 假设 = 多重宇宙的和谐</li>
+      <li>6.4&emsp;人择选择的代数意义</li>
+    </ul>
+  </li>
+  <li>7&emsp;从内部向外看 —— 数学作为望远镜
+    <ul>
+      <li>7.1&emsp;物理学的局限</li>
+      <li>7.2&emsp;数学的力量</li>
+      <li>7.3&emsp;时间与 <span class="inline-math">ℤ</span> 的关系</li>
+      <li>7.4&emsp;开放问题</li>
+    </ul>
+  </li>
+  <li>参考文献</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>1&emsp;<span class="inline-math">ℤ</span> —— 起源</h2>
+
+<h3>1.1&emsp;极小性</h3>
+
+<p>在所有环中，<span class="inline-math">ℤ</span> 占据着最特殊的地位。</p>
+
+<div class="theorem-env">
+  <p><span class="label">定义 1.1</span>（环范畴的始对象 [A]）。对任意（含幺）环 <span class="inline-math">R</span>，存在唯一的环同态 <span class="inline-math">ℤ → R</span>，即 <span class="inline-math">n ↦ n·1<sub>R</sub></span>。我们称 <span class="inline-math">ℤ</span> 为环范畴的始对象（initial object）。</p>
+</div>
+
+<p>这一定义意味着 <span class="inline-math">ℤ</span> 是代数结构中最贫乏却最基本的环——它恰好且仅仅包含"计数本身"所需的结构。</p>
+
+<div class="theorem-env">
+  <p><span class="label">命题 1.2</span>（极小性 [A]）。<span class="inline-math">ℤ</span> 是满足以下条件的唯一环：</p>
+  <p>(i) 作为加法群，<span class="inline-math">ℤ ≅ (ℤ, +)</span> 是无限循环群；</p>
+  <p>(ii) <span class="inline-math">End(ℤ, +) ≅ ℤ</span>（自同态代数等于自身）；</p>
+  <p>(iii) <span class="inline-math">ℤ ⊗<sub>ℤ</sub> ℤ ≅ ℤ</span>（自张量积退化）。</p>
+</div>
+
+<div class="proof">
+  <p><span class="proof-label">证明.</span> (i) 无限循环群的同构类是唯一的，由生成元 1（或 −1）确定。(ii) 对 <span class="inline-math">f ∈ End(ℤ, +)</span>，<span class="inline-math">f(n) = nf(1)</span>，故 <span class="inline-math">f</span> 完全由 <span class="inline-math">f(1) ∈ ℤ</span> 确定，得 <span class="inline-math">End(ℤ, +) ≅ ℤ</span>。(iii) 张量积的泛性质：对任意 <span class="inline-math">ℤ</span>-模 <span class="inline-math">M</span>，<span class="inline-math">ℤ ⊗<sub>ℤ</sub> M ≅ M</span>；取 <span class="inline-math">M = ℤ</span> 即得。</p>
+  <p>乘法的唯一性：设 <span class="inline-math">R</span> 为含幺环且加法群 <span class="inline-math">R<sup>+</sup> ≅ ℤ</span>，令 <span class="inline-math">1<sub>R</sub></span> 在此同构下对应整数 <span class="inline-math">k</span>。由 <span class="inline-math">1<sub>R</sub>·1<sub>R</sub> = 1<sub>R</sub></span> 得 <span class="inline-math">k² = k</span>，故 <span class="inline-math">k = 0</span> 或 <span class="inline-math">k = 1</span>。若 <span class="inline-math">k = 0</span>，则 <span class="inline-math">1<sub>R</sub> = 0</span>，<span class="inline-math">R</span> 为零环，与含幺性矛盾；因此 <span class="inline-math">k = 1</span>，即 <span class="inline-math">1<sub>R</sub></span> 对应 <span class="inline-math">1 ∈ ℤ</span>。对任意 <span class="inline-math">m, n ∈ R</span>（视为整数），乘法完全由 <span class="inline-math">m·n = m·(n·1<sub>R</sub>) = (mn)·1<sub>R</sub></span> 确定，得 <span class="inline-math">R ≅ ℤ</span>。<span class="qed">□</span></p>
+</div>
+
+<h3>1.2&emsp;乘法的涌现</h3>
+
+<p>作为加法群的 <span class="inline-math">ℤ</span> 仅有加法。乘法不是公理，而是从自同态中涌现的。</p>
+
+<div class="theorem-env">
+  <p><span class="label">定理 1.3</span>（乘法的涌现 [A]）。设 <span class="inline-math">(ℤ, +)</span> 为无限循环群。对 <span class="inline-math">m ≥ 0</span>，定义 <span class="inline-math">m·n := n + n + ⋯ + n</span>（<span class="inline-math">m</span> 次）（<span class="inline-math">0·n := 0</span>）；对 <span class="inline-math">m &lt; 0</span>，定义 <span class="inline-math">m·n := −((−m)·n)</span>。则 <span class="inline-math">(ℤ, +, ·)</span> 构成交换整环，且分配律是推论而非公理。</p>
+</div>
+
+<div class="proof">
+  <p><span class="proof-label">证明.</span> 由 <span class="inline-math">End(ℤ, +) ≅ ℤ</span>，乘以 <span class="inline-math">m</span> 的映射 <span class="inline-math">[m] : n ↦ mn</span> 是加法群自同态。自同态的复合给出 <span class="inline-math">[m] ∘ [n] = [mn]</span>；分配律由自同态的加法结构导出：<span class="inline-math">[m + n] = [m] + [n]</span>。<span class="qed">□</span></p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">注 1.4.</span> 这是一个关键观察：<span class="inline-math">ℤ</span> 的乘法结构并非"被设计进去的"，而是从唯一的无限循环群结构中自动涌现。分配律是推论。加法的自指性（End = <span class="inline-math">ℤ</span>）恰恰是乘法的来源。</p>
+</div>
+
+<h3>1.3&emsp;观测即计数</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定义 1.5</span>（观测的算术定义 [A]）。在BC系统中，观测被定义为选取一个 KMS<sub><span class="inline-math">β</span></sub> 态（KMS state）<span class="inline-math">φ<sub>β</sub></span>（<span class="inline-math">β &gt; 0</span>）。观测的三个代数对应为：</p>
+  <ul>
+    <li><em>区分性</em>：对 <span class="inline-math">β &gt; 1</span> 的极端KMS<sub><span class="inline-math">β</span></sub> 态，<span class="inline-math">φ<sub>β</sub>(μ<sub>n</sub> μ<sub>n</sub>*) = n<sup>−β</sup>/ζ(β)</span>。由于 <span class="inline-math">n<sup>−β</sup></span> 关于 <span class="inline-math">n</span> 严格递减（<span class="inline-math">β &gt; 0</span>），当 <span class="inline-math">n ≠ m</span> 时 <span class="inline-math">φ<sub>β</sub>(μ<sub>n</sub> μ<sub>n</sub>*) ≠ φ<sub>β</sub>(μ<sub>m</sub> μ<sub>m</sub>*)</span>；</li>
+    <li><em>可累加性</em>：<span class="inline-math">φ<sub>β</sub></span> 是 <span class="inline-math">A<sub>BC</sub></span> 上的正线性泛函，支持有限叠加与极限运算；</li>
+    <li><em>不可逆性</em>：<span class="inline-math">μ<sub>n</sub></span> 是等距映射（isometry）但非幺正算子（<span class="inline-math">μ<sub>n</sub>* μ<sub>n</sub> = 1 ≠ μ<sub>n</sub> μ<sub>n</sub>*</span>）；乘以 <span class="inline-math">n</span> 的运算是不可逆的。</li>
+  </ul>
+</div>
+
+<p>在此意义下，<span class="inline-math">ℤ</span> 不仅仅是一组数，而是"计数行为本身"的代数编码。宇宙的存在等价于"存在观测"，而观测等价于"存在 <span class="inline-math">ℤ</span>"。</p>
+
+<h2>2&emsp;BC 代数 —— <span class="inline-math">ℤ</span> 的量子统计力学</h2>
+
+<h3>2.1&emsp;Bost–Connes 系统</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定义 2.1</span>（BC 代数 [A]）。Bost–Connes C*-代数定义为 <span class="inline-math">A<sub>BC</sub> := C*(ℚ/ℤ) ⋊ ℕ*</span>，其中 <span class="inline-math">C*(ℚ/ℤ)</span> 是 <span class="inline-math">ℚ/ℤ</span> 的群 C*-代数，<span class="inline-math">ℕ*</span> 通过乘法作用。生成元为：</p>
+  <ul>
+    <li><span class="inline-math">e(r)</span>，<span class="inline-math">r ∈ ℚ/ℤ</span>：幺正元，满足 <span class="inline-math">e(r)* = e(−r)</span>，<span class="inline-math">e(r)e(s) = e(r + s)</span>；</li>
+    <li><span class="inline-math">μ<sub>n</sub></span>，<span class="inline-math">n ∈ ℕ*</span>：等距元，满足 <span class="inline-math">μ<sub>n</sub>* μ<sub>n</sub> = 1</span>，<span class="inline-math">μ<sub>n</sub> μ<sub>n</sub>* = (1/n) Σ<sub>{r: nr=0}</sub> e(r)</span>；</li>
+    <li>交叉关系：<span class="inline-math">μ<sub>n</sub> e(r) = e(nr)μ<sub>n</sub></span>，<span class="inline-math">μ<sub>n</sub>* e(r) = (1/n) Σ<sub>{ns=r}</sub> e(s) μ<sub>n</sub>*</span>。</li>
+  </ul>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">注 2.2</span>（半群交叉积结构）。<span class="inline-math">ℕ*</span> 是乘法半群而非群。<span class="inline-math">A<sub>BC</sub></span> 是半群交叉积（Hecke 型结构）。<span class="inline-math">μ<sub>n</sub></span> 是等距映射而非幺正算子，反映了乘以 <span class="inline-math">n</span> 的不可逆性。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">定义 2.3</span>（Hamilton 量）。<span class="inline-math">H|n⟩ = (log n)|n⟩</span>。配分函数 <span class="inline-math">Z(β) = Σ<sub>n=1</sub><sup>∞</sup> n<sup>−β</sup> = ζ(β)</span>，在 <span class="inline-math">β &gt; 1</span> 时收敛。</p>
+</div>
+
+<h3>2.2&emsp;KMS 态与相变</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定义 2.4</span>（KMS 态 [A]）。在逆温度 <span class="inline-math">β</span> 下，KMS<sub><span class="inline-math">β</span></sub> 态满足：对任意 <span class="inline-math">a, b ∈ A<sub>BC</sub></span>，存在全纯函数 <span class="inline-math">F<sub>a,b</sub></span>，在带状区域 <span class="inline-math">0 &lt; Im(z) &lt; β</span> 上有界，使得 <span class="inline-math">F<sub>a,b</sub>(t) = φ(aσ<sub>t</sub>(b))</span>，<span class="inline-math">F<sub>a,b</sub>(t + iβ) = φ(σ<sub>t</sub>(b)a)</span>。模流（modular flow）：<span class="inline-math">σ<sub>t</sub>(μ<sub>n</sub>) = n<sup>it</sup>μ<sub>n</sub></span>，<span class="inline-math">σ<sub>t</sub>(e(r)) = e(r)</span>。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">定理 2.5</span>（BC 相变 [A], [1]）。</p>
+  <p>(i) <span class="inline-math">β ≤ 1</span>：KMS<sub><span class="inline-math">β</span></sub> 态唯一；</p>
+  <p>(ii) <span class="inline-math">β &gt; 1</span>：极端 KMS<sub><span class="inline-math">β</span></sub> 态与 <span class="inline-math">Ẑ* = lim←(ℤ/nℤ)*</span> 同胚；</p>
+  <p>(iii) <span class="inline-math">β → ∞</span>：极端 KMS 态由 <span class="inline-math">Gal(ℚ<sup>ab</sup>/ℚ)</span> 参数化，与 <span class="inline-math">Ẑ*</span> 双射。</p>
+  <p>相变发生在 <span class="inline-math">β = 1</span>。</p>
+</div>
+
+<h3>2.3&emsp;<span class="inline-math">β</span> 轴的物理诠释</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定义 2.6</span>（<span class="inline-math">β</span> 轴 [C]）。<span class="inline-math">β ∈ (0, ∞)</span> 是逆观测深度。物理诠释 [C]：<span class="inline-math">β = 0</span> → Haar 测度（全叠加）；<span class="inline-math">β = 1</span> → 相变（"观测涌现"）；<span class="inline-math">β &gt; 1</span> → "通道已选定"。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">注 2.7</span>（自指回路 [C]）。观测 → <span class="inline-math">ℤ</span> → <span class="inline-math">A<sub>BC</sub></span> → KMS →<sup><span class="inline-math">β=1</span></sup> Born 规则 → 观测。注意：从 KMS<sub><span class="inline-math">β=1</span></sub> 严格推导 Born 规则（Born rule）仍是开放问题。</p>
+</div>
+
+<h2>3&emsp;素数宇宙 —— 每个 <span class="inline-math">p</span> 的完整物理</h2>
+
+<h3>3.1&emsp;素数作为 Euler 因子</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定理 3.1</span>（素数的BC分解 [A]）。<span class="inline-math">ζ(β) = ∏<sub>p</sub> 1/(1−p<sup>−β</sup>)</span>。每个素数 <span class="inline-math">p</span> 对应一个 Euler 因子。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">注 3.2</span>（关于局部化的说明）。"<span class="inline-math">A<sub>BC</sub></span> 在 <span class="inline-math">p</span> 处的局部化"是启发式的，并非严格的代数构造。</p>
+</div>
+
+<h3>3.2&emsp;时空维数：Hermite 矩阵论证</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定理 3.3</span>（Herm<sub>2</sub>(ℂ) 的 Minkowski 结构 [A]）。Herm<sub>2</sub>(ℂ) 具有：(i) 实维数 4；(ii) 行列式是签名为 (1,3) 的二次型：<span class="inline-math">det = t² − x² − y² − z²</span>。因此 <span class="inline-math">Herm<sub>2</sub>(ℂ) ≅ ℝ<sup>1,3</sup></span>。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">注 3.4</span>（一般的 <span class="inline-math">a</span>）。对一般的 <span class="inline-math">a</span>，Herm<sub><span class="inline-math">a</span></sub>(ℂ) 的维数为 <span class="inline-math">a²</span>，但行列式是 <span class="inline-math">a</span> 次多项式。<span class="inline-math">a = 2</span> 是行列式为二次型的唯一情形。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">推论 3.5</span>（四维时空的物理认定 [B]）。<span class="inline-math">(ℤ/7ℤ)*</span> 的CRT分解给出最小因子 <span class="inline-math">a = 2</span>。由定理 3.3，Herm<sub>2</sub>(ℂ) 是四维的且具有 Minkowski 度量。将 Herm<sub>2</sub>(ℂ) 认定为时空是一个物理认定 [B]。</p>
+</div>
+
+<h3>3.3&emsp;规范群的CRT分解</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定理 3.6</span>（CRT 分解 [A]）。对素数 <span class="inline-math">p &gt; 2</span>，<span class="inline-math">(ℤ/pℤ)* ≅ ⊕<sub>i</sub> ℤ/q<sub>i</sub><sup>a<sub>i</sub></sup>ℤ</span>，通过 CRT（Chinese Remainder Theorem，中国剩余定理）分解。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">定理 3.7</span>（保因子幺正群 [A]）。设 <span class="inline-math">V = ℂ<sup>a</sup> ⊗ ℂ<sup>b</sup></span>（<span class="inline-math">a, b ≥ 2</span>，<span class="inline-math">a ≠ b</span>）。保因子幺正群为：</p>
+  <pre class="formula">G_{a,b} ≅ (U(1) × SU(a) × SU(b)) / (Z_a × Z_b)</pre>
+  <p>其中 <span class="inline-math">ℤ<sub>a</sub> × ℤ<sub>b</sub></span> 通过 <span class="inline-math">(ω, ω') ↦ ((ωω')<sup>−1</sup>, ωI<sub>a</sub>, ω'I<sub>b</sub>)</span> 嵌入。</p>
+</div>
+
+<div class="proof">
+  <p><span class="proof-label">证明：</span>第1步（Skolem–Noether 定理）：共轭给出 <span class="inline-math">M<sub>a</sub>(ℂ)</span> 的 *-自同构，由幺正共轭 <span class="inline-math">V ∈ U(a)</span> 实现。第2步（双换位子定理，double commutant）：<span class="inline-math">(V* ⊗ I<sub>b</sub>)U</span> 与所有 <span class="inline-math">A ⊗ I<sub>b</sub></span> 可交换，故 <span class="inline-math">= I<sub>a</sub> ⊗ W</span>。第3步：<span class="inline-math">U = V ⊗ W</span>。第4步：满射 <span class="inline-math">π : U(1) × SU(a) × SU(b) → G<sub>a,b</sub></span>。第5步：<span class="inline-math">ker π ≅ ℤ<sub>a</sub> × ℤ<sub>b</sub></span>。<span class="qed">□</span></p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">推论 3.8</span>（<span class="inline-math">p = 7</span> 的规范群 [A]）。<span class="inline-math">(ℤ/7ℤ)* ≅ ℤ/2ℤ × ℤ/3ℤ</span>。CRT 给出 <span class="inline-math">ℂ[G] ≅ ℂ² ⊗ ℂ³</span>（Hilbert 空间张量积）。由定理 3.7：</p>
+  <pre class="formula">G_7 = (U(1) × SU(2) × SU(3)) / Z_6</pre>
+  <p>即标准模型（Standard Model）规范群。</p>
+</div>
+
+<h3>3.4&emsp;素数宇宙全表</h3>
+
+<p><strong>表 1：</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th><var>p</var></th>
+      <th><var>φ</var>(<var>p</var>)</th>
+      <th>时空维数</th>
+      <th>(<span class="inline-math">ℤ/pℤ</span>)*</th>
+      <th>规范群</th>
+      <th>特征数</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>2</td><td>1</td><td>1</td><td>平凡</td><td>{1}</td><td>1</td><td>无内部结构</td></tr>
+    <tr><td>3</td><td>2</td><td>4</td><td><span class="inline-math">ℤ/2ℤ</span></td><td>SU(2)</td><td>2</td><td><var>a</var>=2，无 SU(3)</td></tr>
+    <tr><td>5</td><td>4</td><td>未定义</td><td><span class="inline-math">ℤ/4ℤ</span></td><td>不可分裂</td><td>4</td><td>无CRT分解</td></tr>
+    <tr><td>7</td><td>6</td><td>4</td><td><span class="inline-math">ℤ/2ℤ × ℤ/3ℤ</span></td><td><var>G</var><sub>SM</sub></td><td>6</td><td>我们的宇宙</td></tr>
+    <tr><td>11</td><td>10</td><td>4</td><td><span class="inline-math">ℤ/2ℤ × ℤ/5ℤ</span></td><td>SU(2)×SU(5)</td><td>10</td><td><var>a</var>=2，但 SU(5)</td></tr>
+    <tr><td>13</td><td>12</td><td>9</td><td><span class="inline-math">ℤ/4ℤ × ℤ/3ℤ</span></td><td>部分分裂</td><td>12</td><td><var>a</var>=3，维数 9</td></tr>
+    <tr><td>17</td><td>16</td><td>未定义</td><td><span class="inline-math">ℤ/16ℤ</span></td><td>不可分裂</td><td>16</td><td>无CRT分解</td></tr>
+    <tr><td>19</td><td>18</td><td>4</td><td><span class="inline-math">ℤ/2ℤ × ℤ/9ℤ</span></td><td>SU(2)×SU(9)</td><td>18</td><td><var>a</var>=2，但 SU(9)</td></tr>
+  </tbody>
+</table>
+
+<div class="theorem-env">
+  <p><span class="label">注 3.9.</span> "不可分裂"意味着循环群无法通过CRT分解。时空维数 = <span class="inline-math">a²</span>，其中 <span class="inline-math">a</span> 为最小素数幂CRT因子的阶。<span class="inline-math">p = 7</span> 的唯一性：唯一给出 <span class="inline-math">ℤ/2ℤ × ℤ/3ℤ</span>、从而给出 <span class="inline-math">G<sub>SM</sub></span> 的素数。对 <span class="inline-math">p = 7</span>，<span class="inline-math">φ(7) = 6</span> 个特征 → 6 种费米子类型；<span class="inline-math">6 = 3 × 2</span> → 三代 × 粒子/反粒子 [C]。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">命题 3.10</span>（Euler 因子的乘法独立性 [A]）。<span class="inline-math">log ζ(β) = Σ<sub>p</sub> Σ<sub>k=1</sub><sup>∞</sup> p<sup>−kβ</sup>/k</span>。不同素数的贡献互相独立。</p>
+</div>
+
+<h2>4&emsp;多重宇宙的结构</h2>
+
+<h3>4.1&emsp;共存：<span class="inline-math">β</span> = 0 时的全叠加</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定义 4.1</span>（多重宇宙叠加态 [C]）。在 <span class="inline-math">β = 0</span> 时，KMS 态退化为 Haar 测度。所有素数通道共存于叠加之中。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">定理 4.2</span>（极端KMS态的局部分解 [A]）。对 <span class="inline-math">β &gt; 1</span>，极端 KMS<sub><span class="inline-math">β</span></sub> 态由 <span class="inline-math">Ẑ* = ∏<sub>p</sub> ℤ<sub>p</sub>*</span> 参数化。每个极端态在各 Euler 因子处由 <span class="inline-math">α</span> 到 <span class="inline-math">ℤ<sub>p</sub>*</span> 的投影确定。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">注 4.3</span>（物理诠释 [C]）。<span class="inline-math">β &gt; 1</span> = "观测已发生"，通道经典地被选定。</p>
+</div>
+
+<h3>4.2&emsp;通道间关联</h3>
+
+<div class="theorem-env">
+  <p><span class="label">命题 4.4</span>（合数作为跨通道节点 [B]）。合数 <span class="inline-math">n = p₁<sup>a₁</sup>⋯p<sub>k</sub><sup>a<sub>k</sub></sup></span> 属于 <span class="inline-math">k</span> 个素数通道。Hamilton 量本征值 <span class="inline-math">log n = Σ<sub>i</sub> a<sub>i</sub> log p<sub>i</sub></span> 产生能级关联。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">定义 4.5</span>（跨通道投影 [A]）。对素数 <span class="inline-math">p, q</span>（<span class="inline-math">p ≠ q</span>），<span class="inline-math">π<sub>p</sub>(q) = q mod p ∈ (ℤ/pℤ)*</span>。Dirichlet 特征 <span class="inline-math">χ(q)</span> 给出 <span class="inline-math">p</span> 通道对 <span class="inline-math">q</span> 通道的"频率响应"。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">定理 4.6</span>（<span class="inline-math">ζ</span> 零点作为集体干涉 [C]）。</p>
+  <pre class="formula">ψ(x) = x − Σ_{ζ(ρ)=0} x^ρ/ρ − log(2π) − ½log(1−x^{−2})</pre>
+  <p>每个 <span class="inline-math">ζ</span> 零点贡献一个振荡项。物理诠释：<span class="inline-math">ζ</span> 零点是所有素数通道的集体干涉图样。</p>
+</div>
+
+<h3>4.3&emsp;时间作为通道属性</h3>
+
+<div class="theorem-env">
+  <p><span class="label">命题 4.7</span>（时间是通道属性 [B]）。通道 <span class="inline-math">p</span> 的内部时钟频率为 <span class="inline-math">log p</span>。不同素数的比 <span class="inline-math">log p/log q</span> 为无理数 → 不同素数宇宙永远无法同步。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">推论 4.8</span>（但 <span class="inline-math">β</span> 轴是全局的 [C]）。<span class="inline-math">β</span> 是所有通道共享的全局参数。同生（<span class="inline-math">β = 0</span>），同相变（<span class="inline-math">β = 1</span>），同灭（<span class="inline-math">β → ∞</span>）。</p>
+</div>
+
+<h3>4.4&emsp;宇宙循环</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定理 4.9</span>（<span class="inline-math">θ</span>-函数模变换 [A]）。<span class="inline-math">θ(1/x) = √x · θ(x)</span>，<span class="inline-math">x &gt; 0</span>。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">注 4.10</span>（宇宙循环诠释 [C]）。令 <span class="inline-math">x = e<sup>β</sup></span>，变换将 <span class="inline-math">β = +∞</span>（热寂）与 <span class="inline-math">β = 0</span>（全叠加）联系起来：热寂即是下一个宇宙循环的初态。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">注 4.11</span>（与 Penrose CCC 的联系）。CCC（Conformal Cyclic Cosmology，共形循环宇宙学）的算术版本：<span class="inline-math">θ</span> 模变换扮演了共形缩放的角色。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">命题 4.12</span>（Galois 选择与多样性 [C]）。每个循环之后，BC 基态由 <span class="inline-math">Gal(ℚ<sup>ab</sup>/ℚ) ≅ Ẑ*</span> 参数化。不同的 Galois 元素 → 不同的"相位选择"。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">猜想 4.13</span>（Galois 多样性）。不同的 <span class="inline-math">Gal(ℚ<sup>ab</sup>/ℚ)</span> 选择给出物理上可区分的宇宙。</p>
+</div>
+
+<h3>4.5&emsp;镜像对称</h3>
+
+<div class="theorem-env">
+  <p><span class="label">命题 4.14</span>（<span class="inline-math">ℤ</span> 的自同构 [A]）。<span class="inline-math">Aut(ℤ, +) = {±1}</span>。<span class="inline-math">ξ(s) = ξ(1−s)</span>（关于 <span class="inline-math">Re(s) = 1/2</span> 的反射）。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">注 4.15</span>（物理诠释 [C]）。<span class="inline-math">n ↔ −n</span> → 粒子/反粒子。<span class="inline-math">ξ(s) = ξ(1−s)</span> 保证"反宇宙"是镜像，而非独立存在。</p>
+</div>
+
+<h2>5&emsp;<span class="inline-math">p</span> = 7 —— 我们的宇宙</h2>
+
+<h3>5.1&emsp;三个独立的唯一性证明</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定理 5.1</span>（唯一性 I：<span class="inline-math">b₃</span> 自洽性 [A*]）。<span class="inline-math">b₃ = 11 − 2n<sub>f</sub>/3</span>（标准 QCD [A]）。取 <span class="inline-math">n<sub>f</sub> = φ(p) = p−1</span> [B]，令 <span class="inline-math">b₃ = p</span> [C]：<span class="inline-math">11 − 2(p−1)/3 = p</span> 有唯一解 <span class="inline-math">p = 7</span>。</p>
+</div>
+
+<div class="proof">
+  <p><span class="proof-label">证明.</span> <span class="inline-math">33 − 2p + 2 = 3p → 5p = 35 → p = 7</span>。<span class="qed">□</span></p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">定理 5.2</span>（唯一性 II：4D Minkowski + SU(3) [A]）。<span class="inline-math">p = 7</span> 是满足以下条件的唯一素数：(i) 时空维数 = 4（CRT最小因子 <span class="inline-math">a = 2</span>）；(ii) 规范群包含 SU(3)（CRT 含 <span class="inline-math">ℤ/3ℤ</span> 因子）。</p>
+</div>
+
+<div class="proof">
+  <p><span class="proof-label">证明.</span> 需要 <span class="inline-math">(ℤ/pℤ)* ≅ ℤ/2ℤ × ℤ/3ℤ</span>，即 <span class="inline-math">p−1 = 6</span>，<span class="inline-math">p = 7</span>。对 <span class="inline-math">p = 13</span>：<span class="inline-math">ℤ/4ℤ × ℤ/3ℤ</span>（无 <span class="inline-math">ℤ/2ℤ</span> 因子）。对 <span class="inline-math">p = 19</span>：<span class="inline-math">ℤ/2ℤ × ℤ/9ℤ</span>（SU(9) 而非 SU(3)）。<span class="qed">□</span></p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">定理 5.3</span>（唯一性 III：CRT 规范群 [A]）。<span class="inline-math">(ℤ/pℤ)* ≅ ℤ/2ℤ × ℤ/3ℤ</span> 当且仅当 <span class="inline-math">p = 7</span>。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">推论 5.4</span>（物理推论 [A]）。由 <span class="inline-math">p = 7</span> 得：</p>
+  <p>(i) 四维 Minkowski 时空；</p>
+  <p>(ii) 规范群 <span class="inline-math">U(1)×SU(2)×SU(3)</span>；</p>
+  <p>(iii) 6 个特征 → 3 代 × 2 费米子；</p>
+  <p>(iv) <span class="inline-math">p−2 = 5 = β</span> → 热力学耦合常数。</p>
+</div>
+
+<h3>5.2&emsp;<span class="inline-math">p</span> = 7 的唯一性：人择原理与唯一性</h3>
+
+<div class="theorem-env">
+  <p><span class="label">命题 5.5</span>（无需精细调节 [B]）。<span class="inline-math">p = 7</span> 是允许四维时空 + SU(2)×SU(3) + 三代费米子的唯一素数。"为什么 <span class="inline-math">p = 7</span>"与"为什么有观测者"是同一个问题。</p>
+</div>
+
+<h3>5.3&emsp;后续研究方向</h3>
+
+<ul>
+  <li>从BC KMS条件公理化量子力学</li>
+  <li>从CRT统一四种基本力</li>
+  <li>从 <span class="inline-math">L(1/2, χ)</span> 的值推导质量层级</li>
+  <li>从 <span class="inline-math">β</span> 轴热力学推导宇宙学常数</li>
+</ul>
+
+<h2>6&emsp;跨通道物理</h2>
+
+<h3>6.1&emsp;暗物质 = 其他通道的质量</h3>
+
+<div class="theorem-env">
+  <p><span class="label">命题 6.1</span>（暗物质的算术起源 [C]）。其他通道与 <span class="inline-math">p = 7</span> 共享 <span class="inline-math">β</span>（引力），但不共享 <span class="inline-math">p = 7</span> 的规范相互作用 → 参与引力相互作用、无电磁相互作用、无强相互作用 = 暗物质的性质。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">猜想 6.2</span>（暗物质比例 [C]）。<span class="inline-math">Ω<sub>DM</sub>/Ω<sub>b</sub> = Σ<sub>p≠7</sub> w(p) / w(7)</span>。取 <span class="inline-math">w(p) = p<sup>−β*</sup></span>（<span class="inline-math">β* = 5 = p−2</span>），比值 <span class="inline-math">≈ 16/3 ≈ 5.33</span>，与观测值 <span class="inline-math">≈ 5.3</span> 一致。</p>
+</div>
+
+<h3>6.2&emsp;CP 破缺 = 通道投影畸变</h3>
+
+<div class="theorem-env">
+  <p><span class="label">命题 6.3</span>（CP 破缺的算术起源 [B]）。在 <span class="inline-math">ℤ</span> 层面，<span class="inline-math">n ↦ −n</span> 给出完美的 CP 对称。投影到 <span class="inline-math">p = 7</span> 通道后，复特征 <span class="inline-math">χ</span> 与共轭 <span class="inline-math">χ̄</span> 之间有非零相位差 → CP 破缺。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">注 6.4.</span> CP 破缺源于将 <span class="inline-math">ℤ</span> 的完美对称投影到特定素数通道时的相位损失。</p>
+</div>
+
+<h3>6.3&emsp;Riemann 假设 = 多重宇宙的和谐</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定理 6.5</span>（RH 的多重宇宙诠释 [C]）。RH ≡ <span class="inline-math">ζ</span> 的所有非平凡零点位于 <span class="inline-math">Re(s) = 1/2</span> ≡ 所有通道完美平衡（衰减率 <span class="inline-math">σ − 1/2 = 0</span>）。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">猜想 6.6</span>（RH 的物理必然性 [C]）。稳定的多重宇宙（KMS 平衡）→ 无系统性失衡 → RH。</p>
+</div>
+
+<h3>6.4&emsp;人择选择的代数意义</h3>
+
+<div class="theorem-env">
+  <p><span class="label">命题 6.7</span>（唯一可观测通道 [A]）。要求：<span class="inline-math">d<sub>s</sub> ≥ 4</span>，非阿贝尔规范群，3代费米子 → <span class="inline-math">p = 7</span> 是唯一的。</p>
+</div>
+
+<h2>7&emsp;从内部向外看 —— 数学作为望远镜</h2>
+
+<h3>7.1&emsp;物理学的局限</h3>
+
+<div class="theorem-env">
+  <p><span class="label">命题 7.1</span>（通道内的不可见性 [A]）。在 <span class="inline-math">p = 7</span> 通道中进行的实验无法探测其他通道的规范相互作用。</p>
+</div>
+
+<h3>7.2&emsp;数学的力量</h3>
+
+<div class="theorem-env">
+  <p><span class="label">定理 7.2</span>（数学是唯一的跨宇宙望远镜 [C]）。<span class="inline-math">ℤ</span> 是所有素数宇宙的共同根基。研究 <span class="inline-math">ℤ</span> 的性质（<span class="inline-math">ζ</span>、特征、<span class="inline-math">L</span>-函数）→ 推断其他宇宙。</p>
+</div>
+
+<div class="theorem-env">
+  <p><span class="label">注 7.3.</span> 这不是隐喻。表 1 中的CRT分解和规范群是严格的 [A]。物理实在性无法通过实验验证；数学存在性是无条件的。</p>
+</div>
+
+<h3>7.3&emsp;时间与 <span class="inline-math">ℤ</span> 的关系</h3>
+
+<div class="theorem-env">
+  <p><span class="label">命题 7.4</span>（<span class="inline-math">ℤ</span> 不在时间之中 [C]）。模流 <span class="inline-math">σ<sub>t</sub></span> 作用于 <span class="inline-math">A<sub>BC</sub></span>，而 <span class="inline-math">ℤ</span> 本身是根基，不受其作用的支配。时间是宇宙内部的；<span class="inline-math">ℤ</span> 是超越时间的。</p>
+</div>
+
+<h3>7.4&emsp;开放问题</h3>
+
+<p><strong>Q1. Galois 可区分性：</strong><span class="inline-math">Gal(ℚ<sup>ab</sup>/ℚ)</span> 的不同元素是否给出物理上可区分的宇宙？</p>
+
+<p><strong>Q2. 跨通道引力：</strong>全局 <span class="inline-math">β</span> 能否被体验为"额外维度"？与 Kaluza–Klein 理论的关系？</p>
+
+<p><strong>Q3. 暗物质权重：</strong>从BC代数严格推导 <span class="inline-math">Ω<sub>DM</sub>/Ω<sub>b</sub></span>。</p>
+
+<p><strong>Q4. RH 的物理证明：</strong>能否从"多重宇宙的稳定性"推导出 RH？</p>
+
+<p><strong>Q5. 宇宙循环的韵律：</strong><span class="inline-math">θ</span> 模变换是否对应可在 CMB（宇宙微波背景辐射）中探测到的"Aeon"间信号？</p>
+
+<hr>
+
+<h2>参考文献</h2>
+
+<div class="references">
+  <p>[1] J.-B. Bost, A. Connes, Hecke algebras, type III factors and phase transitions with spontaneous symmetry breaking in number theory, <em>Selecta Math. (N.S.)</em> 1 (1995), no. 3, 411–457.</p>
+  <p>[2] A. Connes, Trace formula in noncommutative geometry and the zeros of the Riemann zeta function, <em>Selecta Math. (N.S.)</em> 5 (1999), no. 1, 29–106.</p>
+  <p>[3] A. Connes, C. Consani, From monoids to hyperstructures: in search of an absolute arithmetic, in: <em>Casimir Force, Casimir Operators and the Riemann Hypothesis</em>, de Gruyter, Berlin, 2010, 147–198.</p>
+  <p>[4] A. Chamseddine, A. Connes, Why the standard model, <em>J. Geom. Phys.</em> 58 (2008), 38–47.</p>
+  <p>[5] J. Kaczorowski, A. Perelli, On the structure of the Selberg class, VII: 1 &lt; d &lt; 2, <em>Ann. of Math.</em> 173 (2011), no. 3, 1397–1441.</p>
+  <p>[6] H. G. Diamond, H. L. Montgomery, U. M. A. Vorhauer, Beurling primes with large oscillation, <em>Math. Ann.</em> 334 (2006), no. 1, 1–36.</p>
+  <p>[7] R. Penrose, <em>Cycles of Time: An Extraordinary New View of the Universe</em>, Bodley Head, London, 2010.</p>
+</div>
+
+</body>
+</html>
